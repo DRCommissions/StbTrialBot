@@ -82,5 +82,6 @@ public class ButtonListener extends ListenerAdapter {
         ticket.getManager().putMemberPermissionOverride(e.getUser().getIdLong(), permissions, new ArrayList<>()).queue();
         ticket.sendMessageEmbeds(new EmbedBuilder().setTitle("Ticket claimed").setDescription("This ticket has been claimed by " + e.getUser().getName()).build()).queue();
         e.replyEmbeds(new EmbedBuilder().setTitle("Ticket claimed!").build()).setEphemeral(true).queue();
+        e.getMessage().delete().queue();
     }
 }

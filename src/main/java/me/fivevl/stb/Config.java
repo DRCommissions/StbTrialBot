@@ -11,6 +11,7 @@ public class Config {
     String writerRoleId;
     String pluginDeveloperRoleId;
     String graphicDesignerRoleId;
+    String managementRoleId;
     String mongoHost;
     String mongoDatabase;
     String mongoUsername;

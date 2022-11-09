@@ -2,6 +2,7 @@ package me.fivevl.stb;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -36,6 +37,10 @@ public class CommandListener extends ListenerAdapter {
     }
 
     private void ticketDeleteCommand(SlashCommandInteractionEvent e) {
+        if (!hasPermission(e.getMember())) {
+            e.reply("You don't have permission to do this!").setEphemeral(true).queue();
+            return;
+        }
         if (!isTicket(e.getChannel().asTextChannel())) {
             e.replyEmbeds(new EmbedBuilder().setTitle("This is not a ticket!").build()).setEphemeral(true).queue();
             return;
@@ -45,6 +50,10 @@ public class CommandListener extends ListenerAdapter {
     }
 
     private void ticketArchiveCommand(SlashCommandInteractionEvent e) {
+        if (!hasPermission(e.getMember())) {
+            e.reply("You don't have permission to do this!").setEphemeral(true).queue();
+            return;
+        }
         if (!isTicket(e.getChannel().asTextChannel())) {
             e.replyEmbeds(new EmbedBuilder().setTitle("This is not a ticket!").build()).setEphemeral(true).queue();
             return;
@@ -79,6 +88,10 @@ public class CommandListener extends ListenerAdapter {
     }
 
     private void ticketAddCommand(SlashCommandInteractionEvent e) {
+        if (!hasPermission(e.getMember())) {
+            e.reply("You don't have permission to do this!").setEphemeral(true).queue();
+            return;
+        }
         if (!isTicket(e.getChannel().asTextChannel())) {
             e.replyEmbeds(new EmbedBuilder().setTitle("This is not a ticket!").build()).setEphemeral(true).queue();
             return;
@@ -93,6 +106,10 @@ public class CommandListener extends ListenerAdapter {
     }
 
     private void ticketRemoveCommand(SlashCommandInteractionEvent e) {
+        if (!hasPermission(e.getMember())) {
+            e.reply("You don't have permission to do this!").setEphemeral(true).queue();
+            return;
+        }
         if (!isTicket(e.getChannel().asTextChannel())) {
             e.replyEmbeds(new EmbedBuilder().setTitle("This is not a ticket!").build()).setEphemeral(true).queue();
             return;
@@ -107,6 +124,10 @@ public class CommandListener extends ListenerAdapter {
     }
 
     private void ticketRepostCommand(SlashCommandInteractionEvent e) {
+        if (!hasPermission(e.getMember())) {
+            e.reply("You don't have permission to do this!").setEphemeral(true).queue();
+            return;
+        }
         if (!isTicket(e.getChannel().asTextChannel())) {
             e.replyEmbeds(new EmbedBuilder().setTitle("This is not a ticket!").build()).setEphemeral(true).queue();
             return;
@@ -144,5 +165,9 @@ public class CommandListener extends ListenerAdapter {
 
     private boolean isTicket(TextChannel channel) {
         return channel.getParentCategory().getId().equals(Main.config.ticketCategoryId) || channel.getParentCategory().getId().equals(Main.config.ticketArchiveCategoryId);
+    }
+
+    private boolean hasPermission(Member member) {
+        return member.getRoles().stream().anyMatch(role -> role.getId().equals(Main.config.managementRoleId));
     }
 }

@@ -9,6 +9,7 @@
   "pluginDeveloperRoleId": "pluginDeveloperRoleId",
   "graphicDesignerRoleId": "graphicDesignerRoleId",
   "writerRoleId": "writerRoleId",
+  "managementRoleId": "managementRoleId",
   "mongoHost": "mongoHost",
   "mongoDatabase": "mongoDatabase",
   "mongoUsername": "mongoUsername",
